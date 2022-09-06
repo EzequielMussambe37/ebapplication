@@ -22,6 +22,8 @@ import {
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { GeneralServicesService } from './services/general-services.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, SimpleCalculatorComponent],
   imports: [
@@ -39,11 +41,12 @@ import { AngularFireModule } from '@angular/fire/compat';
     MatButtonModule,
     FirestoreModule,
     //AngularFirestore,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideFirestore(() => getFirestore()),
   ],
-  providers: [],
+  providers: [GeneralServicesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
