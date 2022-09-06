@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-firebase-7df9a": {
+      "hosting": {
+        "budget": [
+          "angular-firebase-7df9a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-firebase-7df9a"
+  }
+}

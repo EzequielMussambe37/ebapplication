@@ -1,0 +1,51 @@
+
+
+<main class="container">
+
+	<mat-toolbar color="secundary" class="toolbars">
+      
+     <h2>MY BUDGET</h2>
+	</mat-toolbar>
+	<div class="container__window">
+	<div class="container__operations">
+		<mat-divider></mat-divider>
+		<div class="items">
+			<label>Escolhe Fornecimento</label>
+			<mat-form-field appearance="fill">
+			  <mat-label>Choose an option</mat-label>
+			  <mat-select [(value)]="data.items">
+			    <mat-option value="{{s}}" *ngFor="let s of interface">{{s}}</mat-option>
+			  </mat-select>
+			</mat-form-field>
+		</div>
+		<mat-divider></mat-divider>
+		<div class="items">
+			<label>Utilizador</label>
+			<div>
+				<mat-radio-group aria-label="Select an option"  [(ngModel)]="data.name">
+					<mat-radio-button value="none" checked>Ninguem</mat-radio-button>
+				  <mat-radio-button value="Ezequiel" >Ezequiel</mat-radio-button>
+				  <mat-radio-button value="Orquidea">Orquidea</mat-radio-button>
+				</mat-radio-group>
+
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+		<div class="items">
+			<label>Quantidade</label>
+			<mat-form-field appearance="fill" floatLabel="always" class="quantity" >
+			    <!-- <mat-label>Amount</mat-label> -->
+			    <input matInput type="number"  class="example-right-align" placeholder="0" [(ngModel)]="data.value">
+			    <span matPrefix>KZ&nbsp;</span>
+			    <span matSuffix>,00</span>
+			</mat-form-field>
+		</div>
+		<div class="button-position">
+			<button mat-button (click)="saveResult()">Salvar</button>
+		</div>
+		<mat-divider></mat-divider>
+	</div>
+	<div class="container__results"></div>
+	</div>
+</main>
+<!-- [(ngModel)]="FinalData.items" -->

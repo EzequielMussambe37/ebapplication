@@ -1,0 +1,16 @@
+Create new repo:
+echo "# ebapplication" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/EzequielMussambe37/ebapplication.git
+git push -u origin main
+
+
+
+push to an existing repo:
+git remote add origin https://github.com/EzequielMussambe37/ebapplication.git
+git branch -M main
+git push -u origin main
+
