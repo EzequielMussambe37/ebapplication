@@ -6,9 +6,9 @@
         <div class="container__operations">
             <mat-divider></mat-divider>
             <div class="items">
-                <label>Escolhe Fornecimento</label>
+                <label>Itens</label>
                 <mat-form-field appearance="fill">
-                    <mat-label>Choose an option</mat-label>
+                    <mat-label>Opções</mat-label>
                     <mat-select [(value)]="data.items">
                         <mat-option value="{{ s }}" *ngFor="let s of taskList">
                             {{ s }}
