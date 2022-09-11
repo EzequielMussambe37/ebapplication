@@ -14,3 +14,9 @@ git remote add origin https://github.com/EzequielMussambe37/ebapplication.git
 git branch -M main
 git push -u origin main
 
+
+
+deployment:
+https://www.youtube.com/watch?v=XQdlMwS-azI&ab_channel=AyyazTech
+
+     // "start": "node server.js",
