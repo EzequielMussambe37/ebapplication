@@ -5,8 +5,8 @@ interface FinalData {
   items?: string;
   name?: string;
   value: any;
+  text?: string;
 }
-
 @Component({
   selector: 'app-simple-calculator',
   templateUrl: './simple-calculator.component.html',
@@ -21,8 +21,9 @@ export class SimpleCalculatorComponent implements OnInit {
 
   data: FinalData = {
     items: undefined,
-    name: undefined,
+    name: '',
     value: null,
+    text: '',
   };
   taskList: Array<string> = Array<string>();
 
@@ -36,26 +37,25 @@ export class SimpleCalculatorComponent implements OnInit {
     console.log(this.data);
     //https://github.com/code1ogic/Angular-Firebase-crud
     const refs = this.dados
-      .collection('/budget')
+      .collection('/users')
       .snapshotChanges()
       .subscribe((data: any) => {
         this.listOfFiles = data.map((e: any) => {
           const single = e.payload.doc.data();
           single.id = e.payload.doc.id;
-          return single;
+          return single.nome;
         });
         console.log(this.listOfFiles);
       });
   }
 
   addToDatabase() {
+    //console.log(this.data);
+    //this.data.name =
+    this.data.name = this.gServices.userName;
     console.log(this.data);
-    if (this.data.items && this.data.name && this.data.value) {
-      const promts = prompt('Porfavor entra o nome do Usuario: ');
-      if (promts?.toLowerCase() !== 'ezequiel') {
-        alert('Wrong User');
-        return;
-      }
+    if (this.data.items && this.data.value) {
+      console.log(this.data);
       this.dados.collection('/budget').add(this.data);
       alert('Addicionado com sucesso');
       this.clearAll();
