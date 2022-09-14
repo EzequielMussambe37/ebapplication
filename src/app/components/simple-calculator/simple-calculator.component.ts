@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GeneralServicesService } from '../../services/general-services.service';
+declare var Plotly: any;
 interface FinalData {
   items?: string;
   name?: string;
@@ -17,6 +18,7 @@ export class SimpleCalculatorComponent implements OnInit {
     private dados: AngularFirestore,
     private gServices: GeneralServicesService
   ) {}
+
   hide = true;
 
   data: FinalData = {
@@ -74,5 +76,80 @@ export class SimpleCalculatorComponent implements OnInit {
     this.data.items = '';
     this.data.name = '';
     this.data.value = null;
+  }
+
+  showGraph() {
+    //Plotly.plot();
+    // var trace1 = {
+    //   type: 'bar',
+    //   x: [1, 2, 3, 4],
+    //   y: [5, 10, 2, 8],
+    //   marker: {
+    //     color: '#C8A2C8',
+    //     line: {
+    //       width: 2.5,
+    //     },
+    //   },
+    // };
+
+    // var data = [trace1];
+
+    // var layout = {
+    //   title: 'Consumption',
+    //   font: { size: 18 },
+    // };
+
+    // var config = { responsive: true };
+    //Plotly.newPlot('gd', [{ y: [1, 2, 3], x: [2, 4, 6] }]);
+    //Plotly.newPlot('gd', [{ y: [1, 2, 3], x: [2, 4, 6] }]);
+    //Plotly.newPlot('gd', data, layout, config);
+    // var data = [
+    //   {
+    //     values: [19, 26, 55],
+    //     labels: ['Residential', 'Non-Residential', 'Utility'],
+    //     type: 'pie',
+    //   },
+    // ];
+
+    // var layout = {
+    //   height: 400,
+    //   width: 500,
+    // };
+
+    // Plotly.newPlot('gd', data, layout);
+    //new Date(ano, mês, dia, hora, minuto, segundo, milissegundo);
+    var inicio = new Date();
+    let day = inicio.getDate();
+    let month = inicio.getMonth();
+    let hora = inicio.getHours();
+    let finals = inicio.getFullYear();
+    //let ss = inicio.now();
+    //console.log(ss);
+    console.log(inicio.toString());
+    console.log(finals);
+    console.log(day);
+    console.log(month);
+    console.log(hora);
+    //console.log(inicio.getTime());
+    var nHoraInicial = Date.now();
+    console.log(nHoraInicial.toString());
+
+    const d = new Date();
+    let text = d.toLocaleDateString(); //2/09/2022
+    console.log(text);
+    console.log(d.toLocaleTimeString()); //horas
+    var data = [
+      {
+        x: [
+          '2013-10-04 22:23:00',
+          '2013-11-04 22:23:00',
+          '2013-12-04 22:23:00',
+        ],
+        y: [1, 3, 6],
+        type: 'scatter',
+      },
+    ];
+
+    Plotly.newPlot('gd', data);
   }
 }

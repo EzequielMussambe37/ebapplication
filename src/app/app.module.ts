@@ -30,6 +30,10 @@ import { SimpleCalculatorComponent } from './components/simple-calculator/simple
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 // SimpleCalculatorComponent, LoginComponent;
+// import * as PlotlyJS from 'plotly.js-dist-min';
+// import { PlotlyModule } from 'angular-plotly.js';
+
+//PlotlyModule.plotlyjs = PlotlyJS;
 @NgModule({
   declarations: [AppComponent, SimpleCalculatorComponent, LoginComponent],
   imports: [
@@ -47,6 +51,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     FirestoreModule,
     //AngularFirestore,
+    // PlotlyModule,
     MatDialogModule,
     HttpClientModule,
     AppRoutingModule,
