@@ -11,17 +11,6 @@ globalThis.creds = 'Login';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  constructor(private gServices: GeneralServicesService) {}
-  //credentialStatus: string = 'Login';
-  credentialStatus = creds;
-  //this.gServices.isLogin;
-  ngOnInit(): void {
-    //this.credentialStatus = this.gServices.isLogin;
-  }
-
-  ngAfterViewInit() {
-    console.log(this.gServices.isLogin);
-  }
-  title = 'budget';
+export class AppComponent {
+  //(private gServices: GeneralServicesService) {}
 }

@@ -1,0 +1,32 @@
+.dialog-main {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content: center;
+    --margin: auto;
+}
+
+.title {
+    text-align: center;
+}
+
+.action-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --width: 50px;
+}
+
+.login-btn:hover {
+    background-color: darkgray;
+}
+
+.login-btn {
+    font-size: 20px;
+    background-color: lightgray;
+}
