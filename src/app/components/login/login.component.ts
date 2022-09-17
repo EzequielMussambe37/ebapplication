@@ -31,10 +31,7 @@ export class LoginComponent implements OnInit {
       this.loginAndOut('Login');
       return;
     }
-    //this.prompts = prompt('Please usa o seu nome: ');
     this.openDialogWindow();
-    //console.log('this is the name: ' + this.prompts);
-
     //if (this.prompts)
     //console.log(this.data);
     //https://github.com/code1ogic/Angular-Firebase-crud
@@ -61,9 +58,10 @@ export class LoginComponent implements OnInit {
         console.log(result);
       } catch {}
 
-      if (result?.userName) {
+      if (result?.userName && result?.passWord) {
         this.authentificar(this.userName, this.passWord);
       } else {
+        alert('Por favor preencha o Espacos ');
         this.routes.navigate(['/']);
         console.log('this is called');
         this.loginAndOut('Login');
@@ -72,6 +70,10 @@ export class LoginComponent implements OnInit {
   }
 
   authentificar(userName: string, passWord: string = '') {
+    if (attempts > 2) {
+      alert('Excedeu as tentativas.');
+      return;
+    }
     const refs = this.dados
       .collection('/users')
       .snapshotChanges()
@@ -85,16 +87,19 @@ export class LoginComponent implements OnInit {
           userName?.toUpperCase() === listOfFiles[0].toUpperCase() ||
           userName?.toUpperCase() === listOfFiles[1].toUpperCase()
         ) {
+          attempts = 0;
           this.routes.navigate(['budget']);
           this.gServices.userName = userName.toUpperCase();
-          //const element: any = document.getElementById('login-logout');
           this.loginAndOut('Logout');
-          //element.innerHTML = 'Logout';
           console.log('hello people');
         } else {
+          attempts++;
+          alert('Credentiais Errados');
           this.routes.navigate(['/']);
           console.log('this is called');
           this.loginAndOut('Login');
+
+          console.log('this is the repetitions: ' + attempts);
         }
       });
   }
