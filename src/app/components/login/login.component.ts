@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
   passWord: any;
   prompts: any;
   ngOnInit(): void {
-    if (this.gServices.userName !== '') {
+    if (this.authServices.isLogin) {
       this.routes.navigate(['/']);
-      this.gServices.userName = '';
+      this.authServices.userName = '';
       this.authServices.isLogin = false;
       this.loginAndOut('Login');
       return;
@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
         ) {
           attempts = 0;
           this.routes.navigate(['budget']);
-          this.gServices.userName = userName.toUpperCase();
+          this.authServices.userName = userName.toUpperCase();
           this.authServices.isLogin = true;
           this.loginAndOut('Logout');
           console.log('hello people');

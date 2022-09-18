@@ -15,6 +15,7 @@ interface FinalData {
   styleUrls: ['./simple-calculator.component.css'],
 })
 export class SimpleCalculatorComponent implements OnInit {
+  authServices: any;
   constructor(
     private dados: AngularFirestore,
     private gServices: GeneralServicesService,
@@ -56,7 +57,7 @@ export class SimpleCalculatorComponent implements OnInit {
   addToDatabase() {
     //console.log(this.data);
     //this.data.name =
-    this.data.name = this.gServices.userName;
+    this.data.name = this.authServices.userName;
     console.log(this.data);
     if (this.data.items && this.data.value) {
       console.log(this.data);

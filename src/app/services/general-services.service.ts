@@ -6,12 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class GeneralServicesService {
   constructor(private http: HttpClient) {}
 
-  userName?: string = '';
   getTasks(url: string) {
     return this.http.get(url);
-  }
-
-  getUser(user: any) {
-    return user;
   }
 }

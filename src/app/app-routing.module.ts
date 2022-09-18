@@ -13,7 +13,11 @@ const appRoutes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   //{ path: '**', component: NotFoundComponent },
-  { path: 'result', component: ResultPlotlyComponent },
+  {
+    path: 'result',
+    component: ResultPlotlyComponent,
+    canActivate: [UserGuardService],
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
