@@ -37,16 +37,23 @@
                     <span matSuffix>,00</span>
                 </mat-form-field>
             </div>
+            <div class="items">
+                <label>Comentários</label>
+                <mat-form-field appearance="legacy" class="quantity">
+                    <!-- <mat-label>Amount</mat-label> -->
+                    <!-- <input matInput type="text" class="example-right-align" placeholder="0" [(ngModel)]="data.value" /> -->
+                    <textarea matInput [(ngModel)]="data.text"></textarea>
+                </mat-form-field>
+            </div>
+
             <div class="button-position">
-                <button mat-button (click)="addToDatabase()">Salvar</button>
+                <button mat-raised-button (click)="addToDatabase()">Salvar</button>
+                <button mat-raised-button (click)="resultPage()">Resultados</button>
             </div>
             <mat-divider></mat-divider>
         </div>
         <div class="container__results">
             <div id="gd"></div>
-            <button (click)="displayResult()">Mostrar Resultados</button>
-            <button (click)="showGraph()">quick show</button>
-            <!-- <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot> -->
         </div>
     </div>
 </main>

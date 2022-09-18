@@ -3,6 +3,7 @@ import { GeneralServicesService } from '../../services/general-services.service'
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router, CanActivate } from '@angular/router';
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component';
+import { AuthService } from '../../services/auth.service';
 import {
   MatDialog,
   MatDialogRef,
@@ -16,6 +17,7 @@ import {
 export class LoginComponent implements OnInit {
   constructor(
     private gServices: GeneralServicesService,
+    private authServices: AuthService,
     private dados: AngularFirestore,
     private routes: Router,
     public dialog: MatDialog
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
     if (this.gServices.userName !== '') {
       this.routes.navigate(['/']);
       this.gServices.userName = '';
+      this.authServices.isLogin = false;
       this.loginAndOut('Login');
       return;
     }
@@ -90,6 +93,7 @@ export class LoginComponent implements OnInit {
           attempts = 0;
           this.routes.navigate(['budget']);
           this.gServices.userName = userName.toUpperCase();
+          this.authServices.isLogin = true;
           this.loginAndOut('Logout');
           console.log('hello people');
         } else {

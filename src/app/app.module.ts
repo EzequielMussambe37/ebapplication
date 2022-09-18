@@ -24,9 +24,18 @@ import { SimpleCalculatorComponent } from './components/simple-calculator/simple
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { ResultPlotlyComponent } from './components/result-plotly/result-plotly.component';
+import { UserGuardService } from './guards/user-guard.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
-  declarations: [AppComponent, SimpleCalculatorComponent, LoginComponent, DialogBoxComponent],
+  declarations: [
+    AppComponent,
+    SimpleCalculatorComponent,
+    LoginComponent,
+    DialogBoxComponent,
+    ResultPlotlyComponent,
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -50,7 +59,7 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideFirestore(() => getFirestore()),
   ],
-  providers: [GeneralServicesService],
+  providers: [GeneralServicesService, UserGuardService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

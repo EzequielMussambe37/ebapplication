@@ -22,8 +22,16 @@
 .container__operations {}
 
 .container__results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid lightgray;
 }
+
+
+/* .container__results button {
+    width: 50px;
+} */
 
 .items {
     display: flex;

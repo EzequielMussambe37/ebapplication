@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GeneralServicesService } from '../../services/general-services.service';
+import { Router, CanActivate } from '@angular/router';
 declare var Plotly: any;
 interface FinalData {
   items?: string;
@@ -16,7 +17,8 @@ interface FinalData {
 export class SimpleCalculatorComponent implements OnInit {
   constructor(
     private dados: AngularFirestore,
-    private gServices: GeneralServicesService
+    private gServices: GeneralServicesService,
+    private routes: Router
   ) {}
 
   hide = true;
@@ -151,5 +153,9 @@ export class SimpleCalculatorComponent implements OnInit {
     ];
 
     Plotly.newPlot('gd', data);
+  }
+
+  resultPage() {
+    this.routes.navigate(['result']);
   }
 }
