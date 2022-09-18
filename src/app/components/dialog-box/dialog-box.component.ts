@@ -15,9 +15,11 @@ export class DialogBoxComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  ) {
+    this.dialogRef.disableClose = true;
+  }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(0);
   }
 }

@@ -53,20 +53,21 @@ export class LoginComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('this is the result');
-      console.log(result);
       try {
         this.userName = result.userName;
         this.passWord = result.passWord;
-        console.log(result);
       } catch {}
 
       if (result?.userName && result?.passWord) {
         this.authentificar(this.userName, this.passWord);
       } else {
+        if (result === 0) {
+          this.routes.navigate(['/']);
+          this.loginAndOut('Login');
+          return;
+        }
         alert('Por favor preencha o Espacos ');
         this.routes.navigate(['/']);
-        console.log('this is called');
         this.loginAndOut('Login');
       }
     });
