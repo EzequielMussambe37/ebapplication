@@ -9,7 +9,7 @@ const appRoutes: Routes = [
   {
     path: 'budget',
     component: SimpleCalculatorComponent,
-    //canActivate: [UserGuardService],
+    canActivate: [UserGuardService],
   },
   { path: 'login', component: LoginComponent },
   //{ path: '**', component: NotFoundComponent },
