@@ -1,12 +1,18 @@
-.toolbars {
+.routers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: steelblue;
 }
 
 .list {
     display: flex;
-    --flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1rem;

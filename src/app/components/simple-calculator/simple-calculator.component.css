@@ -1,25 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 790px;
+    gap: .5rem;
+    background-color: lightgray;
+    border-radius: 3%;
+}
+
 .toolbars {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
-    align-content: center;
-    width: 700px;
-    margin: auto;
-    background-color: white;
+    --background-color: steelblue;
+    background-color: lightgray;
+    --border-radius: 10%;
 }
 
 .container__window {
     display: grid;
     grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
 }
-
-.container__operations {}
 
 .container__results {
     display: flex;
@@ -28,28 +32,24 @@
     border: 1px solid lightgray;
 }
 
-
-/* .container__results button {
-    width: 50px;
-} */
+.container__operations {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
 
 .items {
-    display: flex;
-    flex-direction: column;
-    --justify-content: center;
-    --align-items: flex-start;
-    --height: 35%;
-    --gap: .5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
 }
 
 .items label {
     text-align: center;
     font-size: 16px;
     color: blue
-}
-
-.quantity {
-    height: 100%;
 }
 
 .example-container .mat-form-field+.mat-form-field {
@@ -70,16 +70,13 @@ input.example-right-align {
 }
 
 .button-position {
-    margin: auto;
+    display: flex;
+    gap: .5rem;
 }
 
 @media screen and (max-width:600px) {
-    /* .container__window {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-    } */
     .container {
         width: 100%;
+        /* -o-animation: 50%; */
     }
 }

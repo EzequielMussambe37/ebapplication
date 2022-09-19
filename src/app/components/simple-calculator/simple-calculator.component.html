@@ -1,10 +1,11 @@
+<!-- <div class="main-container"> -->
 <main class="container">
+    <br />
     <mat-toolbar color="secundary" class="toolbars">
         <h2>MY BUDGET</h2>
     </mat-toolbar>
     <div class="container__window">
         <div class="container__operations">
-            <mat-divider></mat-divider>
             <div class="items">
                 <label>Itens</label>
                 <mat-form-field appearance="fill">
@@ -16,22 +17,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <!-- <mat-divider></mat-divider> -->
-            <!-- <div class="items">
-                <label>Utilizador</label>
-                <div>
-                    <mat-radio-group aria-label="Select an option" [(ngModel)]="data.name">
-                        <mat-radio-button value="none" checked>Ninguem</mat-radio-button>
-                        <mat-radio-button value="Ezequiel">Ezequiel</mat-radio-button>
-                        <mat-radio-button value="Orquidea">Orquidea</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-            </div> -->
-            <!-- <mat-divider></mat-divider> -->
             <div class="items">
                 <label>Quantidade</label>
                 <mat-form-field appearance="fill" floatLabel="always" class="quantity">
-                    <!-- <mat-label>Amount</mat-label> -->
                     <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="data.value" />
                     <span matPrefix>KZ&nbsp;</span>
                     <span matSuffix>,00</span>
@@ -40,8 +28,6 @@
             <div class="items">
                 <label>Comentários</label>
                 <mat-form-field appearance="legacy" class="quantity">
-                    <!-- <mat-label>Amount</mat-label> -->
-                    <!-- <input matInput type="text" class="example-right-align" placeholder="0" [(ngModel)]="data.value" /> -->
                     <textarea matInput [(ngModel)]="data.text"></textarea>
                 </mat-form-field>
             </div>
@@ -50,11 +36,12 @@
                 <button mat-raised-button (click)="addToDatabase()">Salvar</button>
                 <button mat-raised-button (click)="resultPage()">Resultados</button>
             </div>
-            <mat-divider></mat-divider>
+            <!-- <mat-divider></mat-divider> -->
         </div>
         <div class="container__results">
             <div id="gd"></div>
         </div>
     </div>
 </main>
+<!-- </div> -->
 <!-- [(ngModel)]="FinalData.items" -->
