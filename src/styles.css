@@ -15,3 +15,39 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     --background-color: black;
 }
+
+
+/* this is being used in two components(options and main-pages) */
+
+.head-title h1 {
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.main-result {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.mat-divider {
+    border-top-color: steelblue;
+}
+
+.item-result {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content: center;
+}
+
+.item-result label {
+    text-align: center;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

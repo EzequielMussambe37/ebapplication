@@ -1,0 +1,48 @@
+<header class="head-title">
+    <h1>My Main Budget</h1>
+    <mat-divider></mat-divider>
+</header>
+
+<main class="main-result">
+    <div class="container__window">
+        <div class="item-result">
+            <label>Itens</label>
+            <mat-form-field appearance="fill">
+                <mat-label>Opções</mat-label>
+                <mat-select [(value)]="data.items">
+                    <mat-option value="{{ s }}" *ngFor="let s of taskList">
+                        {{ s }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="item-result">
+            <label>Comentários</label>
+            <mat-form-field appearance="legacy" class="quantity">
+                <textarea matInput [(ngModel)]="data.text"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="item-result">
+            <label>Quantidade</label>
+            <mat-form-field appearance="fill" floatLabel="always" class="quantity">
+                <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="data.value" />
+                <span matPrefix>KZ&nbsp;</span>
+                <span matSuffix>,00</span>
+            </mat-form-field>
+        </div>
+
+        <div class="item-result">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [(ngModel)]="data.date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="action-button">
+        <button mat-raised-button (click)="addToDatabase()">Salvar</button>
+        <button mat-raised-button (click)="resultPage()">Dados</button>
+    </div>
+</main>

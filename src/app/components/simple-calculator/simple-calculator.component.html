@@ -1,4 +1,4 @@
-<!-- <div class="main-container"> -->
+<!--
 <main class="container">
     <br />
     <mat-toolbar color="secundary" class="toolbars">
@@ -31,17 +31,22 @@
                     <textarea matInput [(ngModel)]="data.text"></textarea>
                 </mat-form-field>
             </div>
-
+            <div class="items">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [(ngModel)]="data.date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" />
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
             <div class="button-position">
                 <button mat-raised-button (click)="addToDatabase()">Salvar</button>
-                <button mat-raised-button (click)="resultPage()">Resultados</button>
+                <button mat-raised-button (click)="resultPage()">Dados</button>
             </div>
-            <!-- <mat-divider></mat-divider> -->
         </div>
         <div class="container__results">
             <div id="gd"></div>
         </div>
     </div>
-</main>
-<!-- </div> -->
-<!-- [(ngModel)]="FinalData.items" -->
+</main> -->

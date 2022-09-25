@@ -27,7 +27,13 @@ import { DialogBoxComponent } from './components/dialog-box/dialog-box.component
 import { ResultPlotlyComponent } from './components/result-plotly/result-plotly.component';
 import { UserGuardService } from './guards/user-guard.service';
 import { AuthService } from './services/auth.service';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { OptionsPageComponent } from './components/options-page/options-page.component';
+import { ResultReportComponent } from './components/result-report/result-report.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +41,9 @@ import { AuthService } from './services/auth.service';
     LoginComponent,
     DialogBoxComponent,
     ResultPlotlyComponent,
+    MainPageComponent,
+    OptionsPageComponent,
+    ResultReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,12 +58,14 @@ import { AuthService } from './services/auth.service';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatNativeDateModule,
     FirestoreModule,
-    //AngularFirestore,
-    // PlotlyModule,
+    MatDatepickerModule,
     MatDialogModule,
     HttpClientModule,
     AppRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
     AngularFireModule.initializeApp(environment.firebase),
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideFirestore(() => getFirestore()),

@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   passWord: any;
   prompts: any;
   ngOnInit(): void {
+    console.log('how many time its return');
     if (this.authServices.isLogin) {
       this.routes.navigate(['/']);
       this.authServices.userName = '';
@@ -85,12 +86,20 @@ export class LoginComponent implements OnInit {
         const listOfFiles = data.map((e: any) => {
           const single = e.payload.doc.data();
           single.id = e.payload.doc.id;
-          return single.nome;
+          return single;
         });
+
+        console.log(listOfFiles);
         if (
-          userName?.toUpperCase() === listOfFiles[0].toUpperCase() ||
-          userName?.toUpperCase() === listOfFiles[1].toUpperCase()
+          userName?.toUpperCase() === listOfFiles[0].nome.toUpperCase() ||
+          userName?.toUpperCase() === listOfFiles[1].nome.toUpperCase()
         ) {
+          if (passWord !== listOfFiles[0].key.toUpperCase()) {
+            alert('Credentiais Errados');
+            this.routes.navigate(['/']);
+            attempts++;
+            return;
+          }
           attempts = 0;
           this.routes.navigate(['budget']);
           this.authServices.userName = userName.toUpperCase();
@@ -104,7 +113,7 @@ export class LoginComponent implements OnInit {
           console.log('this is called');
           this.loginAndOut('Login');
 
-          console.log('this is the repetitions: ' + attempts);
+          return;
         }
       });
   }
