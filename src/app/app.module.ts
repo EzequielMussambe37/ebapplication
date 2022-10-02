@@ -34,6 +34,7 @@ import { OptionsPageComponent } from './components/options-page/options-page.com
 import { ResultReportComponent } from './components/result-report/result-report.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,11 +67,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AppRoutingModule,
     MatTableModule,
     MatPaginatorModule,
+    ScrollingModule,
     AngularFireModule.initializeApp(environment.firebase),
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideFirestore(() => getFirestore()),
   ],
-  providers: [GeneralServicesService, UserGuardService, AuthService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+// GeneralServicesService, UserGuardService, AuthService;

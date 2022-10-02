@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GeneralServicesService } from '../../services/general-services.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router, CanActivate } from '@angular/router';
@@ -9,25 +9,29 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { FirestoreDataService } from 'src/app/services/firestore-data.service';
+import { take, takeUntil } from 'rxjs';
+import { Subject, interval } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private gServices: GeneralServicesService,
     private authServices: AuthService,
     private dados: AngularFirestore,
     private routes: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private stores: FirestoreDataService
   ) {}
 
   userName: any;
   passWord: any;
   prompts: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   ngOnInit(): void {
-    console.log('how many time its return');
     if (this.authServices.isLogin) {
       this.routes.navigate(['/']);
       this.authServices.userName = '';
@@ -37,7 +41,6 @@ export class LoginComponent implements OnInit {
     }
     this.openDialogWindow();
     //if (this.prompts)
-    //console.log(this.data);
     //https://github.com/code1ogic/Angular-Firebase-crud
   }
 
@@ -79,42 +82,50 @@ export class LoginComponent implements OnInit {
       alert('Excedeu as tentativas.');
       return;
     }
-    const refs = this.dados
-      .collection('/users')
-      .snapshotChanges()
-      .subscribe((data: any) => {
-        const listOfFiles = data.map((e: any) => {
-          const single = e.payload.doc.data();
-          single.id = e.payload.doc.id;
-          return single;
-        });
+    const refs = this.dados;
 
-        console.log(listOfFiles);
-        if (
-          userName?.toUpperCase() === listOfFiles[0].nome.toUpperCase() ||
-          userName?.toUpperCase() === listOfFiles[1].nome.toUpperCase()
-        ) {
-          if (passWord !== listOfFiles[0].key.toUpperCase()) {
+    this.stores
+      .getUserName()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (data: any) => {
+          const listOfFiles = data.map((e: any) => {
+            const single = e.payload.doc.data();
+            single.id = e.payload.doc.id;
+            return single;
+          });
+          if (
+            userName?.toUpperCase() === listOfFiles[0].nome.toUpperCase() ||
+            userName?.toUpperCase() === listOfFiles[1].nome.toUpperCase()
+          ) {
+            if (passWord !== listOfFiles[0].key.toUpperCase()) {
+              alert('Credentiais Errados');
+              this.routes.navigate(['/']);
+              attempts++;
+              return;
+            }
+            attempts = 0;
+            this.routes.navigate(['budget']);
+            this.authServices.userName = userName.toUpperCase();
+            this.authServices.isLogin = true;
+            this.loginAndOut('Logout');
+          } else {
+            attempts++;
             alert('Credentiais Errados');
             this.routes.navigate(['/']);
-            attempts++;
+            this.loginAndOut('Login');
+
             return;
           }
-          attempts = 0;
-          this.routes.navigate(['budget']);
-          this.authServices.userName = userName.toUpperCase();
-          this.authServices.isLogin = true;
-          this.loginAndOut('Logout');
-          console.log('hello people');
-        } else {
-          attempts++;
-          alert('Credentiais Errados');
-          this.routes.navigate(['/']);
-          console.log('this is called');
-          this.loginAndOut('Login');
-
-          return;
+        },
+        (error) => {
+          alert('Something went wrong');
         }
-      });
+      );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

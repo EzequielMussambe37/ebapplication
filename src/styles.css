@@ -14,6 +14,7 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     --background-color: black;
+    overflow-x: hidden;
 }
 
 
@@ -43,11 +44,20 @@ body {
 
 .item-result label {
     text-align: center;
+    color: blue;
 }
 
 .action-button {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+}
+
+.options-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }

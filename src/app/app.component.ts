@@ -10,6 +10,4 @@ globalThis.attempts = 0;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  //(private gServices: GeneralServicesService) {}
-}
+export class AppComponent {}

@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GeneralServicesService } from '../../services/general-services.service';
 import { Router, CanActivate } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
+import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 declare var Plotly: any;
 interface FinalData {
   items?: string;
@@ -18,27 +20,25 @@ interface FinalData {
   styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-  //authServices: any;
   @ViewChild('dt', { static: false }) dates!: ElementRef;
 
   minDate: Date;
   maxDate: Date;
+  itemsTaks$: Observable<any> | undefined;
+  //courseObs: Observable<any> | undefined;
   constructor(
     private dados: AngularFirestore,
-    private gServices: GeneralServicesService,
+    public gServices: GeneralServicesService,
     private authServices: AuthService,
-    private routes: Router
+    private routes: Router,
+    private stores: FirestoreDataService
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear, 0, 1);
     this.maxDate = new Date(currentYear + 5, 11, 31);
-    console.log(this.minDate);
-    console.log(this.maxDate);
-    console.log(currentYear);
   }
 
   hide = true;
-
   data: FinalData = {
     items: undefined,
     name: '',
@@ -53,35 +53,32 @@ export class MainPageComponent implements OnInit {
   url: string =
     'https://raw.githubusercontent.com/EzequielMussambe37/taskList/master/taskLists.json';
   ngOnInit(): void {
-    this.getTaskServices();
+    this.stores.getDataFromFireStoreByFiltering();
+    this.itemsTaks$ = this.gServices.getTasks(this.url);
+    this.displayResult();
   }
   displayResult() {
-    console.log(this.data);
-    //https://github.com/code1ogic/Angular-Firebase-crud
-    const refs = this.dados
-      .collection('/users')
-      .snapshotChanges()
-      .subscribe((data: any) => {
-        this.listOfFiles = data.map((e: any) => {
-          const single = e.payload.doc.data();
-          single.id = e.payload.doc.id;
-          return single.nome;
-        });
-        console.log(this.listOfFiles);
-      });
+    // //https://github.com/code1ogic/Angular-Firebase-crud
+    // const refs = this.dados
+    //   .collection('/users')
+    //   .snapshotChanges()
+    //   .subscribe((data: any) => {
+    //     this.listOfFiles = data.map((e: any) => {
+    //       const single = e.payload.doc.data();
+    //       single.id = e.payload.doc.id;
+    //       return single.nome;
+    //     });
+    //   });
   }
 
   addToDatabase() {
-    //console.log(this.data);
-    //this.data.name =
     this.data.name = this.authServices?.userName;
     this.data.date = this.data.date?.toDateString();
     this.data.time = this.data.time.toLocaleTimeString();
-    console.log(this.data);
     if (this.data.items && this.data.value) {
-      //console.log(this.data);
-      this.dados.collection('/budget').add(this.data);
-      alert('Addicionado com sucesso');
+      // this.dados.collection('/budget').add(this.data);
+      // alert('Addicionado com sucesso');
+      this.stores.addDataToFireStore(this.data);
       this.clearAll();
       return;
     }
@@ -89,10 +86,9 @@ export class MainPageComponent implements OnInit {
   }
 
   getTaskServices() {
-    this.gServices.getTasks(this.url).subscribe((task: any) => {
-      console.log(task);
-      this.taskList = task['tarefas'];
-    });
+    // this.gServices.getTasks(this.url).subscribe((task: any) => {
+    //   this.taskList = task['tarefas'];
+    // });
   }
   clearAll() {
     this.data.items = '';
@@ -147,20 +143,9 @@ export class MainPageComponent implements OnInit {
     let hora = inicio.getHours();
     let finals = inicio.getFullYear();
     //let ss = inicio.now();
-    //console.log(ss);
-    console.log(inicio.toString());
-    console.log(finals);
-    console.log(day);
-    console.log(month);
-    console.log(hora);
-    //console.log(inicio.getTime());
     var nHoraInicial = Date.now();
-    console.log(nHoraInicial.toString());
-
     const d = new Date();
     let text = d.toLocaleDateString(); //2/09/2022
-    console.log(text);
-    console.log(d.toLocaleTimeString()); //horas
     var data = [
       {
         x: [
@@ -179,7 +164,6 @@ export class MainPageComponent implements OnInit {
   resultPage() {
     // this.data.date = this.data.date?.toDateString();
     // this.data.time = this.data.time.toLocaleTimeString();
-    // console.log(this.data);
     this.routes.navigate(['result']);
   }
 }
