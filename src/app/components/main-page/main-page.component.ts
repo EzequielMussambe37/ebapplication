@@ -5,15 +5,8 @@ import { Router, CanActivate } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
+import { DataToSaveOnFireStore } from '../../interfaces/g-interface';
 declare var Plotly: any;
-interface FinalData {
-  items?: string;
-  name?: string;
-  value: any;
-  text?: string;
-  date?: any;
-  time?: any;
-}
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -39,14 +32,17 @@ export class MainPageComponent implements OnInit {
   }
 
   hide = true;
-  data: FinalData = {
-    items: undefined,
+  data: DataToSaveOnFireStore = {
+    items: '',
     name: '',
-    value: null,
+    value: 0,
     text: '',
     date: new Date(),
     time: new Date(),
   };
+
+  // date: new Date(),
+  // time: new Date(),
   taskList: Array<string> = Array<string>();
 
   listOfFiles: any;
@@ -74,10 +70,8 @@ export class MainPageComponent implements OnInit {
   addToDatabase() {
     this.data.name = this.authServices?.userName;
     this.data.date = this.data.date?.toDateString();
-    this.data.time = this.data.time.toLocaleTimeString();
+    this.data.time = this.data.time?.toLocaleTimeString();
     if (this.data.items && this.data.value) {
-      // this.dados.collection('/budget').add(this.data);
-      // alert('Addicionado com sucesso');
       this.stores.addDataToFireStore(this.data);
       this.clearAll();
       return;
@@ -93,7 +87,7 @@ export class MainPageComponent implements OnInit {
   clearAll() {
     this.data.items = '';
     this.data.name = '';
-    this.data.value = null;
+    this.data.value = 0;
     this.data.text = '';
   }
 

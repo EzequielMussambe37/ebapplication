@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { filter, map, of, retry } from 'rxjs';
+import { map, retry } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })

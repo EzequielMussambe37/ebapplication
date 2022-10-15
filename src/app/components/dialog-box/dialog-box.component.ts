@@ -1,11 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface DialogData {
-  userName: string | undefined;
-  passWord: string | undefined;
-}
-
+import { DialogData } from '../../interfaces/g-interface';
 @Component({
   selector: 'app-dialog-box',
   templateUrl: './dialog-box.component.html',

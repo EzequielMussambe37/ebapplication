@@ -1,21 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GeneralServicesService } from '../../services/general-services.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Router, CanActivate } from '@angular/router';
+import { Router } from '@angular/router';
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component';
 import { AuthService } from '../../services/auth.service';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
-import { take, takeUntil } from 'rxjs';
-import { Subject, interval } from 'rxjs';
+import { takeUntil, Subject } from 'rxjs';
+
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  template: '',
+  styleUrls: [],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   constructor(
@@ -108,6 +104,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.routes.navigate(['budget']);
             this.authServices.userName = userName.toUpperCase();
             this.authServices.isLogin = true;
+            console.log('this is the data user');
+            console.log(listOfFiles);
             this.loginAndOut('Logout');
           } else {
             attempts++;
