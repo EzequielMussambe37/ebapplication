@@ -13,14 +13,14 @@ const appRoutes: Routes = [
   {
     path: 'budget',
     component: MainPageComponent,
-    // canActivate: [UserGuardService],
+    canActivate: [UserGuardService],
   },
   { path: 'login', component: LoginComponent },
   //{ path: '**', component: NotFoundComponent },
   {
     path: 'plotly',
     component: ResultPlotlyComponent,
-    // canActivate: [UserGuardService],
+    canActivate: [UserGuardService],
   },
   {
     path: 'result',
@@ -29,10 +29,10 @@ const appRoutes: Routes = [
       {
         path: 'report',
         component: ResultReportComponent,
-        // canActivate: [UserGuardService],
+        canActivate: [UserGuardService],
       },
     ],
-    // canActivate: [UserGuardService],
+    canActivate: [UserGuardService],
   },
 ];
 @NgModule({

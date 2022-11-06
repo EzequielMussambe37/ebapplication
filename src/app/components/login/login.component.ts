@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   ngOnInit(): void {
     if (this.authServices.isLogin) {
+      console.log('this is been called');
       this.routes.navigate(['/']);
       this.authServices.userName = '';
       this.authServices.isLogin = false;
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   openDialogWindow(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '250px',
+      // width: '250px',
       data: { userName: this.userName, passWord: this.passWord },
     });
 
@@ -59,70 +60,55 @@ export class LoginComponent implements OnInit, OnDestroy {
       } catch {}
 
       if (result?.userName && result?.passWord) {
-        this.authentificar(this.userName, this.passWord);
+        this.userName =
+          this.userName[0].toUpperCase() +
+          this.userName.substring(1).toLowerCase();
+        this.authServices
+          .authentificar(this.userName, this.passWord)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            (data) => {
+              console.log('this is also being called');
+              console.log(data);
+              this.stores.storeDataSize = data.length;
+              // dataFromFireStore;
+              this.authServices.isLogin = true;
+              this.stores.dataFromFireStore = data;
+              this.authServices.userName = this.userName;
+              attempts = 0;
+              this.routes.navigate(['budget']);
+
+              this.loginAndOut('Logout');
+            },
+            (error) => {
+              if (attempts > 3) {
+                alert('Excedeu as tentativas.');
+                return;
+              }
+              attempts++;
+              this.routes.navigate(['/']);
+              setTimeout(() => {
+                this.routes.navigate(['/login']);
+              }, 200);
+            }
+          );
       } else {
         if (result === 0) {
+          console.log('values');
           this.routes.navigate(['/']);
           this.loginAndOut('Login');
           return;
         }
-        alert('Por favor preencha o Espacos ');
+        //alert('Por favor preencha o Espacos ');
         this.routes.navigate(['/']);
-        this.loginAndOut('Login');
+        setTimeout(() => {
+          this.routes.navigate(['/login']);
+        }, 200);
       }
     });
   }
-
-  authentificar(userName: string, passWord: string = '') {
-    if (attempts > 2) {
-      alert('Excedeu as tentativas.');
-      return;
-    }
-    const refs = this.dados;
-
-    this.stores
-      .getUserName()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (data: any) => {
-          const listOfFiles = data.map((e: any) => {
-            const single = e.payload.doc.data();
-            single.id = e.payload.doc.id;
-            return single;
-          });
-          if (
-            userName?.toUpperCase() === listOfFiles[0].nome.toUpperCase() ||
-            userName?.toUpperCase() === listOfFiles[1].nome.toUpperCase()
-          ) {
-            if (passWord !== listOfFiles[0].key.toUpperCase()) {
-              alert('Credentiais Errados');
-              this.routes.navigate(['/']);
-              attempts++;
-              return;
-            }
-            attempts = 0;
-            this.routes.navigate(['budget']);
-            this.authServices.userName = userName.toUpperCase();
-            this.authServices.isLogin = true;
-            console.log('this is the data user');
-            console.log(listOfFiles);
-            this.loginAndOut('Logout');
-          } else {
-            attempts++;
-            alert('Credentiais Errados');
-            this.routes.navigate(['/']);
-            this.loginAndOut('Login');
-
-            return;
-          }
-        },
-        (error) => {
-          alert('Something went wrong');
-        }
-      );
-  }
-
   ngOnDestroy() {
+    console.log('thi sis the destroinggggg');
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

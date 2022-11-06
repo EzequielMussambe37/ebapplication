@@ -12,7 +12,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
-import { FirestoreModule } from '@angular/fire/firestore';
+import {
+  FirestoreModule,
+  provideFirestore,
+  getFirestore,
+} from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +33,10 @@ import { ResultReportComponent } from './components/result-report/result-report.
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { UserGuardService } from './guards/user-guard.service';
+// import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,10 +71,13 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatPaginatorModule,
     ScrollingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
     //provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideFirestore(() => getFirestore()),
   ],
-  providers: [],
+  providers: [UserGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

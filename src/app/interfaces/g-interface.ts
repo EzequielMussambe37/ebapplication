@@ -9,15 +9,14 @@ export interface DataToSaveOnFireStore {
   items: string;
   name: string;
   value: number;
-  text: string;
+  details: string;
   date: any;
   time: any;
 }
 
 export interface PeriodicDataFireStore {
-  id: number;
-  nome: string;
   producto: string;
   valore: number;
   date: any;
+  time: any;
 }

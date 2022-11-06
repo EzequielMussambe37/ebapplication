@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GeneralServicesService } from '../../services/general-services.service';
 import { Router, CanActivate } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { DataToSaveOnFireStore } from '../../interfaces/g-interface';
 declare var Plotly: any;
@@ -12,12 +18,13 @@ declare var Plotly: any;
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
   @ViewChild('dt', { static: false }) dates!: ElementRef;
 
   minDate: Date;
   maxDate: Date;
   itemsTaks$: Observable<any> | undefined;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   //courseObs: Observable<any> | undefined;
   constructor(
     private dados: AngularFirestore,
@@ -36,7 +43,7 @@ export class MainPageComponent implements OnInit {
     items: '',
     name: '',
     value: 0,
-    text: '',
+    details: '',
     date: new Date(),
     time: new Date(),
   };
@@ -49,9 +56,9 @@ export class MainPageComponent implements OnInit {
   url: string =
     'https://raw.githubusercontent.com/EzequielMussambe37/taskList/master/taskLists.json';
   ngOnInit(): void {
-    this.stores.getDataFromFireStoreByFiltering();
+    //this.stores.getDataFromFireStoreByFiltering();
     this.itemsTaks$ = this.gServices.getTasks(this.url);
-    this.displayResult();
+    //this.displayResult();
   }
   displayResult() {
     // //https://github.com/code1ogic/Angular-Firebase-crud
@@ -68,11 +75,17 @@ export class MainPageComponent implements OnInit {
   }
 
   addToDatabase() {
-    this.data.name = this.authServices?.userName;
-    this.data.date = this.data.date?.toDateString();
-    this.data.time = this.data.time?.toLocaleTimeString();
+    //try{}
     if (this.data.items && this.data.value) {
-      this.stores.addDataToFireStore(this.data);
+      const d = new Date();
+      this.data.name = this.authServices?.userName;
+      try {
+        this.data.date = this.data.date?.toDateString();
+      } catch {
+        this.data.date = this.data.date;
+      }
+      this.data.time = d.toLocaleTimeString();
+      this.stores.dataObservable$ = this.stores.addDataToFireStore(this.data);
       this.clearAll();
       return;
     }
@@ -86,9 +99,10 @@ export class MainPageComponent implements OnInit {
   }
   clearAll() {
     this.data.items = '';
-    this.data.name = '';
+    //this.data.name = '';
     this.data.value = 0;
-    this.data.text = '';
+    this.data.details = '';
+    //this.date = new Date();
   }
 
   showGraph() {
@@ -158,6 +172,12 @@ export class MainPageComponent implements OnInit {
   resultPage() {
     // this.data.date = this.data.date?.toDateString();
     // this.data.time = this.data.time.toLocaleTimeString();
+
     this.routes.navigate(['result']);
+  }
+  ngOnDestroy() {
+    console.log('this main page was destroyed-----');
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

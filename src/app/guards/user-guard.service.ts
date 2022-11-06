@@ -16,10 +16,13 @@ export class UserGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.isAuthenticated()) {
+      console.log('EYESSSS');
       return true;
     }
-
+    console.log('this is falseeeee');
     this.routes.navigate(['login']);
     return false;
   }
+  // isLogin;
+  // this.auth.isAuthenticated()
 }
