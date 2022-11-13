@@ -108,6 +108,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.routes.navigate(['budget']);
         setTimeout((_: any) => {
           this.isReportOpen = false;
+          this.reporText = 'Hide Report';
           this.routes.navigate(['budget/report']);
         }, 10);
 

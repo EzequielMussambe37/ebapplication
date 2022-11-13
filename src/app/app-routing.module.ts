@@ -20,7 +20,7 @@ const appRoutes: Routes = [
         canActivate: [UserGuardService],
       },
     ],
-    // canActivate: [UserGuardService],
+    canActivate: [UserGuardService],
   },
   { path: 'login', component: LoginComponent },
   //{ path: '**', component: NotFoundComponent },
@@ -29,18 +29,6 @@ const appRoutes: Routes = [
     component: ResultPlotlyComponent,
     canActivate: [UserGuardService],
   },
-  // {
-  //   path: 'result',
-  //   component: OptionsPageComponent,
-  //   children: [
-  //     {
-  //       path: 'report',
-  //       component: ResultReportComponent,
-  //       canActivate: [UserGuardService],
-  //     },
-  //   ],
-  //   canActivate: [UserGuardService],
-  // },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
