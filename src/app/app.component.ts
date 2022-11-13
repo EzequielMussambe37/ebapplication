@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
     private authServices: AuthService //private authServices: AuthService
   ) {}
 
+  title: any;
+
   ngOnInit(): void {
     // console.log('this is ');
     // this.authServices.authentificar('Ezequiel', 'TERESA1').subscribe(
