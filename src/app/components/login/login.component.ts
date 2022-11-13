@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }, 200);
               }
             },
-            (error) => {
+            (error: any) => {
               alert('something went wrong');
               if (attempts > 3) {
                 alert('Excedeu as tentativas.');

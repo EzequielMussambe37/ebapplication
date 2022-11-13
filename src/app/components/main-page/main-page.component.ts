@@ -66,7 +66,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   resultWithoutRedirect() {
     this.stores
       .getDataFromFireStoreByUser(this.authServices.userName)
-      .subscribe((data) => {
+      .subscribe((data: any) => {
         console.log('All data of the users ========== ');
         console.log(data);
         this.stores.dataFromFireStore = data;
@@ -140,7 +140,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   resultPage() {
     this.stores
       .getDataFromFireStoreByUser(this.authServices.userName)
-      .subscribe((data) => {
+      .subscribe((data: any) => {
         console.log('All data of the users ========== ');
         console.log(data);
         console.log(this.authServices.userName);

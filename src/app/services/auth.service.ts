@@ -36,11 +36,11 @@ export class AuthService {
   //     );
   // }
 
-  authentificar(userName: string, password: string) {
+  authentificar(userName: string, password: string): any {
     return this.stores.getUsers().pipe(
-      map((data) => {
+      map((data: any) => {
         return data.filter(
-          (data) =>
+          (data: any) =>
             data.payload.doc.data().nome === userName &&
             data.payload.doc.data().key === password
         );
