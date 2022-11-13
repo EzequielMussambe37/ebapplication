@@ -20,3 +20,5 @@ deployment:
 https://www.youtube.com/watch?v=XQdlMwS-azI&ab_channel=AyyazTech
 
      // "start": "node server.js",
+
+     //"heroku-postbuild": "ng build --prod"
