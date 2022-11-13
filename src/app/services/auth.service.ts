@@ -20,20 +20,32 @@ export class AuthService {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   // login() {}
+  // authentificar(userName: string, password: string) {
+  //   return this.stores
+  //     .getUsers()
+  //     .pipe(
+  //       switchMap((data) =>
+  //         this.stores.getDataFromFireStoreByUser(
+  //           data.filter(
+  //             (data: any) =>
+  //               data.payload.doc.data().nome === userName &&
+  //               data.payload.doc.data().key === password
+  //           )
+  //         )
+  //       )
+  //     );
+  // }
+
   authentificar(userName: string, password: string) {
-    return this.stores
-      .getUsers()
-      .pipe(
-        switchMap((data) =>
-          this.stores.getDataFromFireStoreByUser(
-            data.filter(
-              (data: any) =>
-                data.payload.doc.data().nome === userName &&
-                data.payload.doc.data().key === password
-            )
-          )
-        )
-      );
+    return this.stores.getUsers().pipe(
+      map((data) => {
+        return data.filter(
+          (data) =>
+            data.payload.doc.data().nome === userName &&
+            data.payload.doc.data().key === password
+        );
+      })
+    );
   }
   isAuthenticated() {
     return this.isLogin;

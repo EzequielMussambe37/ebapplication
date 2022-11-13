@@ -45,7 +45,6 @@ export class ResultReportComponent implements OnInit, AfterViewInit {
     this.routes.navigate(['result']);
   }
   deleteRecord(row: any) {
-    //console.log(row.id);
     this.stores.deleteFromFireStore(row).subscribe((data:any)=>{
       console.log("this is the folder")
       console.log(data)

@@ -5,7 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ResultPlotlyComponent } from './components/result-plotly/result-plotly.component';
 import { UserGuardService } from './guards/user-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { OptionsPageComponent } from './components/options-page/options-page.component';
+//import { OptionsPageComponent } from './components/options-page/options-page.component';
 import { ResultReportComponent } from './components/result-report/result-report.component';
 // import { ResultReportComponent } from './components/result-report/result-report.component';
 //  { path: 'budget/:username', component: SimpleCalculatorComponent },
@@ -13,7 +13,14 @@ const appRoutes: Routes = [
   {
     path: 'budget',
     component: MainPageComponent,
-    canActivate: [UserGuardService],
+    children: [
+      {
+        path: 'report',
+        component: ResultReportComponent,
+        canActivate: [UserGuardService],
+      },
+    ],
+    // canActivate: [UserGuardService],
   },
   { path: 'login', component: LoginComponent },
   //{ path: '**', component: NotFoundComponent },
@@ -22,18 +29,18 @@ const appRoutes: Routes = [
     component: ResultPlotlyComponent,
     canActivate: [UserGuardService],
   },
-  {
-    path: 'result',
-    component: OptionsPageComponent,
-    children: [
-      {
-        path: 'report',
-        component: ResultReportComponent,
-        canActivate: [UserGuardService],
-      },
-    ],
-    canActivate: [UserGuardService],
-  },
+  // {
+  //   path: 'result',
+  //   component: OptionsPageComponent,
+  //   children: [
+  //     {
+  //       path: 'report',
+  //       component: ResultReportComponent,
+  //       canActivate: [UserGuardService],
+  //     },
+  //   ],
+  //   canActivate: [UserGuardService],
+  // },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

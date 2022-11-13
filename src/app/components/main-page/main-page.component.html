@@ -1,52 +1,59 @@
-<header class="head-title">
-    <h1>My Main Budget</h1>
-    <mat-divider></mat-divider>
-</header>
+<div class="main-page">
+    <header class="head-title">
+        <h1>My Main Budget</h1>
+        <mat-divider></mat-divider>
+    </header>
 
-<main class="main-result">
-    <div class="options-result">
-        <div class="item-result">
-            <label>Itens</label>
-            <ng-container *ngIf="itemsTaks$ | async as taskData">
-                <mat-form-field appearance="fill">
-                    <mat-label>Opções</mat-label>
-                    <mat-select [(value)]="data.items">
-                        <mat-option value="{{ s }}" *ngFor="let s of taskData.tarefas">
-                            {{ s }}
-                        </mat-option>
-                    </mat-select>
+    <main class="main-result">
+        <div class="options-result">
+            <div class="item-result">
+                <label>Itens</label>
+                <ng-container *ngIf="itemsTaks$ | async as taskData">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Opções</mat-label>
+                        <mat-select [(value)]="data.items">
+                            <mat-option value="{{ s }}" *ngFor="let s of taskData.tarefas">
+                                {{ s }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+            </div>
+            <div class="item-result">
+                <label>Quantidade</label>
+                <mat-form-field appearance="fill" floatLabel="always" class="quantity">
+                    <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="data.value" />
+                    <span matPrefix>KZ&nbsp;</span>
+                    <span matSuffix>,00</span>
                 </mat-form-field>
-            </ng-container>
-        </div>
-        <div class="item-result">
-            <label>Quantidade</label>
-            <mat-form-field appearance="fill" floatLabel="always" class="quantity">
-                <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="data.value" />
-                <span matPrefix>KZ&nbsp;</span>
-                <span matSuffix>,00</span>
-            </mat-form-field>
-        </div>
+            </div>
 
-        <div class="item-result">
-            <mat-form-field appearance="legacy" class="quantity">
-                <mat-label>Comentários</mat-label>
-                <textarea matInput placeholder="Enter any commentary" [(ngModel)]="data.details"></textarea>
-            </mat-form-field>
+            <div class="item-result">
+                <mat-form-field appearance="legacy" class="quantity">
+                    <mat-label>Comentários</mat-label>
+                    <textarea matInput placeholder="Enter any commentary" [(ngModel)]="data.details"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="item-result">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [(ngModel)]="data.date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" />
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
         </div>
-        <div class="item-result">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [(ngModel)]="data.date" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" />
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+        <mat-divider></mat-divider>
+        <br />
+        <div class="action-button">
+            <button mat-raised-button (click)="addToDatabase()">Salvar</button>
+            <button mat-raised-button (click)="showHideReport()">
+        {{ reporText }}
+      </button>
         </div>
+    </main>
+    <div>
+        <router-outlet></router-outlet>
     </div>
-    <mat-divider></mat-divider>
-    <br />
-    <div class="action-button">
-        <button mat-raised-button (click)="addToDatabase()">Salvar</button>
-        <button mat-raised-button (click)="resultPage()">Dados</button>
-    </div>
-</main>
+</div>

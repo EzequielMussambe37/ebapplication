@@ -24,6 +24,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   minDate: Date;
   maxDate: Date;
   itemsTaks$: Observable<any> | undefined;
+  isReportOpen: boolean = true;
+  reporText: string = 'Show Report';
   destroy$: Subject<boolean> = new Subject<boolean>();
   //courseObs: Observable<any> | undefined;
   constructor(
@@ -58,7 +60,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //this.stores.getDataFromFireStoreByFiltering();
     this.itemsTaks$ = this.gServices.getTasks(this.url);
-    //this.displayResult();
+    //this.resultWithoutRedirect();
+  }
+
+  resultWithoutRedirect() {
+    this.stores
+      .getDataFromFireStoreByUser(this.authServices.userName)
+      .subscribe((data) => {
+        console.log('All data of the users ========== ');
+        console.log(data);
+        this.stores.dataFromFireStore = data;
+      });
   }
   displayResult() {
     // //https://github.com/code1ogic/Angular-Firebase-crud
@@ -85,95 +97,55 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.data.date = this.data.date;
       }
       this.data.time = d.toLocaleTimeString();
-      this.stores.dataObservable$ = this.stores.addDataToFireStore(this.data);
-      this.clearAll();
-      return;
+      const dataAdd: any = this.stores.addDataToFireStore(this.data);
+      dataAdd.subscribe((data: any) => {
+        console.log('current data');
+        console.log(data);
+        console.log('previous data');
+        console.log(this.stores.dataFromFireStore);
+        // this.reporText = 'Hide Report';
+        //
+        this.routes.navigate(['budget']);
+        setTimeout((_: any) => {
+          this.isReportOpen = false;
+          this.routes.navigate(['budget/report']);
+        }, 10);
+
+        this.clearAll();
+        return;
+      });
     }
-    alert('Porfavor completa os campos vazios. Obrigado!');
+    //alert('Porfavor completa os campos vazios. Obrigado!');
   }
 
-  getTaskServices() {
-    // this.gServices.getTasks(this.url).subscribe((task: any) => {
-    //   this.taskList = task['tarefas'];
-    // });
-  }
   clearAll() {
     this.data.items = '';
-    //this.data.name = '';
     this.data.value = 0;
     this.data.details = '';
-    //this.date = new Date();
   }
 
-  showGraph() {
-    //Plotly.plot();
-    // var trace1 = {
-    //   type: 'bar',
-    //   x: [1, 2, 3, 4],
-    //   y: [5, 10, 2, 8],
-    //   marker: {
-    //     color: '#C8A2C8',
-    //     line: {
-    //       width: 2.5,
-    //     },
-    //   },
-    // };
-
-    // var data = [trace1];
-
-    // var layout = {
-    //   title: 'Consumption',
-    //   font: { size: 18 },
-    // };
-
-    // var config = { responsive: true };
-    //Plotly.newPlot('gd', [{ y: [1, 2, 3], x: [2, 4, 6] }]);
-    //Plotly.newPlot('gd', [{ y: [1, 2, 3], x: [2, 4, 6] }]);
-    //Plotly.newPlot('gd', data, layout, config);
-    // var data = [
-    //   {
-    //     values: [19, 26, 55],
-    //     labels: ['Residential', 'Non-Residential', 'Utility'],
-    //     type: 'pie',
-    //   },
-    // ];
-
-    // var layout = {
-    //   height: 400,
-    //   width: 500,
-    // };
-
-    // Plotly.newPlot('gd', data, layout);
-    //new Date(ano, mês, dia, hora, minuto, segundo, milissegundo);
-    var inicio = new Date();
-    let day = inicio.getDate();
-    let month = inicio.getMonth();
-    let hora = inicio.getHours();
-    let finals = inicio.getFullYear();
-    //let ss = inicio.now();
-    var nHoraInicial = Date.now();
-    const d = new Date();
-    let text = d.toLocaleDateString(); //2/09/2022
-    var data = [
-      {
-        x: [
-          '2013-10-04 22:23:00',
-          '2013-11-04 22:23:00',
-          '2013-12-04 22:23:00',
-        ],
-        y: [1, 3, 6],
-        type: 'scatter',
-      },
-    ];
-
-    Plotly.newPlot('gd', data);
+  showHideReport() {
+    console.log(this.isReportOpen);
+    if (this.isReportOpen) {
+      this.resultPage();
+      this.reporText = 'Hide Report';
+      this.isReportOpen = false;
+      return;
+    }
+    this.routes.navigate(['budget']);
+    this.reporText = 'Show Report';
+    this.isReportOpen = true;
   }
-
   resultPage() {
-    // this.data.date = this.data.date?.toDateString();
-    // this.data.time = this.data.time.toLocaleTimeString();
-
-    this.routes.navigate(['result']);
+    this.stores
+      .getDataFromFireStoreByUser(this.authServices.userName)
+      .subscribe((data) => {
+        console.log('All data of the users ========== ');
+        console.log(data);
+        console.log(this.authServices.userName);
+        this.stores.dataFromFireStore = data;
+        this.routes.navigate(['budget/report']);
+      });
   }
   ngOnDestroy() {
     console.log('this main page was destroyed-----');

@@ -17,6 +17,7 @@ export class UserGuardService implements CanActivate {
   ): boolean {
     if (this.auth.isAuthenticated()) {
       console.log('EYESSSS');
+      //return false;
       return true;
     }
     console.log('this is falseeeee');

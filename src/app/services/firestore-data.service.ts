@@ -29,27 +29,8 @@ export class FirestoreDataService {
   }
 
   addDataToFireStore(data: any) {
-    try {
-      console.log(data.name);
-      alert('Addicionado com sucesso');
-      this.dados.collection(`/${data.name}`).add(data);
-      return this.dados
-        .collection(`/${data.name}`)
-        .snapshotChanges()
-        .pipe(
-          map((data: any) =>
-            data.map((data: any) => {
-              let datas: any = {};
-              datas['data'] = data.payload.doc.data();
-              datas['id'] = data.payload.doc.id;
-              return datas;
-            })
-          )
-        );
-    } catch {
-      alert('Something went wrong');
-      return of(null);
-    }
+    this.dados.collection(`/${data.name}`).add(data);
+    return this.dados.collection(`/${data.name}`).snapshotChanges();
   }
 
   deleteFromFireStore(userData: any) {
@@ -94,8 +75,10 @@ export class FirestoreDataService {
   //   return expression
   // }
 
-  getDataFromFireStoreByUser(ob: any) {
-    const nome = '/' + ob.map((data: any) => data.payload.doc.data().nome);
+  getDataFromFireStoreByUser(userName: any) {
+    console.log('userData');
+    console.log(userName);
+    const nome = '/' + userName;
     return this.dados
       .collection(nome)
       .snapshotChanges()

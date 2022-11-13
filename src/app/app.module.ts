@@ -28,7 +28,7 @@ import { ResultPlotlyComponent } from './components/result-plotly/result-plotly.
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { OptionsPageComponent } from './components/options-page/options-page.component';
+//import { OptionsPageComponent } from './components/options-page/options-page.component';
 import { ResultReportComponent } from './components/result-report/result-report.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -45,7 +45,7 @@ import { UserGuardService } from './guards/user-guard.service';
     DialogBoxComponent,
     ResultPlotlyComponent,
     MainPageComponent,
-    OptionsPageComponent,
+    //OptionsPageComponent,
     ResultReportComponent,
   ],
   imports: [

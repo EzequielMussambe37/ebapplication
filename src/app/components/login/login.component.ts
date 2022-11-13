@@ -63,24 +63,34 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.userName =
           this.userName[0].toUpperCase() +
           this.userName.substring(1).toLowerCase();
+
+        console.log('userName: ' + this.userName);
+        console.log('password: ' + this.passWord);
         this.authServices
           .authentificar(this.userName, this.passWord)
           .pipe(takeUntil(this.destroy$))
           .subscribe(
-            (data) => {
-              console.log('this is also being called');
-              console.log(data);
-              this.stores.storeDataSize = data.length;
-              // dataFromFireStore;
-              this.authServices.isLogin = true;
-              this.stores.dataFromFireStore = data;
-              this.authServices.userName = this.userName;
-              attempts = 0;
-              this.routes.navigate(['budget']);
-
-              this.loginAndOut('Logout');
+            (data: any) => {
+              if (data.length > 0) {
+                this.loginAndOut('Logout');
+                this.authServices.userName = data[0].payload.doc.data().nome;
+                this.authServices.isLogin = true;
+                attempts = 0;
+                this.routes.navigate(['budget']);
+              } else {
+                if (attempts > 3) {
+                  alert('Excedeu as tentativas.');
+                  return;
+                }
+                attempts++;
+                this.routes.navigate(['/']);
+                setTimeout(() => {
+                  this.routes.navigate(['/login']);
+                }, 200);
+              }
             },
             (error) => {
+              alert('something went wrong');
               if (attempts > 3) {
                 alert('Excedeu as tentativas.');
                 return;
@@ -89,26 +99,25 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.routes.navigate(['/']);
               setTimeout(() => {
                 this.routes.navigate(['/login']);
-              }, 200);
+              }, 100);
             }
           );
       } else {
         if (result === 0) {
-          console.log('values');
           this.routes.navigate(['/']);
           this.loginAndOut('Login');
           return;
         }
-        //alert('Por favor preencha o Espacos ');
+        alert('Por favor preencha o Espacos ');
         this.routes.navigate(['/']);
         setTimeout(() => {
           this.routes.navigate(['/login']);
-        }, 200);
+        }, 100);
       }
     });
   }
   ngOnDestroy() {
-    console.log('thi sis the destroinggggg');
+    console.log('thi sis the destroinggggg;');
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
