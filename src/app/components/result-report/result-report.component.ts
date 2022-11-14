@@ -14,8 +14,9 @@ export class ResultReportComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['producto', 'valore', 'date', 'time', 'delete'];
   // dataSource: any = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
   //dataSource: any;
-  dataSource = new MatTableDataSource<PeriodicDataFireStore>
-  fireStoreData: Array<any> = [];
+  dataSource = new MatTableDataSource<PeriodicDataFireStore>();
+  fireStoreData: any;
+  // Array<any> = [];
   JSON = JSON;
 
   @ViewChild(MatPaginator)
@@ -27,7 +28,7 @@ export class ResultReportComponent implements OnInit, AfterViewInit {
     // this.dataSource = new MatTableDataSource<PeriodicDataFireStore>(
     //   this.fireStoreData
     // );
-    console.log(this.dataSource)
+    console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -45,27 +46,23 @@ export class ResultReportComponent implements OnInit, AfterViewInit {
     this.routes.navigate(['result']);
   }
   deleteRecord(row: any) {
-    this.stores.deleteFromFireStore(row).subscribe((data:any)=>{
-      console.log("this is the folder")
-      console.log(data)
-      if(this.stores.storeDataSize !== data.length) {
-
+    this.stores.deleteFromFireStore(row).subscribe((data: any) => {
+      console.log('this is the folder');
+      console.log(data);
+      if (this.stores.storeDataSize !== data.length) {
         //this.fireStoreData =data
-        this.stores.dataFromFireStore = data
+        this.stores.dataFromFireStore = data;
         this.dataSource = new MatTableDataSource(data);
-        return
-      }
-      else if(this.stores.storeDataSize === data.length){
-        this.dataSource = new MatTableDataSource(data)
-        if(data.length === 0) {
+        return;
+      } else if (this.stores.storeDataSize === data.length) {
+        this.dataSource = new MatTableDataSource(data);
+        if (data.length === 0) {
+        } else {
+          alert('DATA WAS NOT SUCCESSFULLY DELETED');
         }
-        else {
-          alert("DATA WAS NOT SUCCESSFULLY DELETED")
-        }
-        return
+        return;
       }
-
-    })
+    });
     //console.log(values)
 
     //values().then(data => console.log(data))

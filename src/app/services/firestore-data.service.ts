@@ -104,9 +104,9 @@ export class FirestoreDataService {
       .collection('/budget')
       .snapshotChanges()
       .pipe(
-        map((data: any) =>
+        map((data) =>
           data
-            .map((data: any) => data.payload.doc.data())
+            .map((data) => data.payload.doc.data())
             .filter((fireData: any) => {
               if (filterName !== '' && values > 0 && filterItems.length > 0) {
                 return (

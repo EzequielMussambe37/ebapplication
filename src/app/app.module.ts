@@ -36,6 +36,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { UserGuardService } from './guards/user-guard.service';
+
+//import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 // import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
@@ -70,12 +76,14 @@ import { UserGuardService } from './guards/user-guard.service';
     MatTableModule,
     MatPaginatorModule,
     ScrollingModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    //AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    //provideFirebaseApp(() => initializeApp(environment.firebase)),
-    //provideFirestore(() => getFirestore()),
   ],
   providers: [UserGuardService],
   bootstrap: [AppComponent],
