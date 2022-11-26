@@ -20,3 +20,13 @@ export interface PeriodicDataFireStore {
   date: any;
   time: any;
 }
+
+export interface updateRecord {
+  date: string;
+  details: string;
+  id: string;
+  items: string;
+  name: string;
+  time: string;
+  value: string;
+}

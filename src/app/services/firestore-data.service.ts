@@ -35,15 +35,18 @@ export class FirestoreDataService {
 
   deleteFromFireStore(userData: any) {
     console.log('info before delete them');
-    console.log(userData.data.name);
+    console.log(userData.name);
     console.log(userData.id);
-    const collections: any = this.dados.collection(`/${userData.data.name}`);
+    const collections: any = this.dados.collection(`/${userData.name}`);
+    console.log('colletion on delete first');
+    console.log(collections);
     collections.doc(userData.id).delete();
+    console.log('colletion on after delete');
+    console.log(collections);
     return collections.snapshotChanges().pipe(
       map((data: any) =>
         data.map((data: any) => {
-          let datas: any = {};
-          datas['data'] = data.payload.doc.data();
+          const datas = data.payload.doc.data();
           datas['id'] = data.payload.doc.id;
           return datas;
         })
@@ -62,6 +65,11 @@ export class FirestoreDataService {
     //});
     //this.ngOnInit()
     // this.dados.collection(`/${userData.data.nome}`).snapshotChanges().doc.delete();
+  }
+
+  updateRecordFromFireStore(record: any) {
+    const collections: any = this.dados.collection(`/${record.name}`);
+    collections.doc(record.id).update(record);
   }
 
   filterDataFromFireStore(
@@ -85,8 +93,7 @@ export class FirestoreDataService {
       .pipe(
         map((data: any) =>
           data.map((data: any) => {
-            let datas: any = {};
-            datas['data'] = data.payload.doc.data();
+            const datas = data.payload.doc.data();
             datas['id'] = data.payload.doc.id;
             return datas;
           })

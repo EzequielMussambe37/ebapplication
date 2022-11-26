@@ -1,49 +1,69 @@
 <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+    <input matInput (keyup)="applyFilter($event.target)" placeholder="Ex. Mia" #input />
 </mat-form-field>
-<!-- <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport"> -->
-<!-- <div>{{ fireStoreData }}</div> -->
-<!-- table-show -->
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+<!-- <div class="mat-elevation-z8"> -->
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="items">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.items }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.value }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Data</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.date }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Horas</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.time }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <mat-icon (click)="deleteRecord(row)">delete</mat-icon>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-icon (click)="editRecord(element)">edit</mat-icon>
+        </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<!-- <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="producto">
-            <th mat-header-cell *matHeaderCellDef>Producto</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
             <td mat-cell *matCellDef="let element">{{ element.data.items }}</td>
         </ng-container>
         <ng-container matColumnDef="valore">
-            <th mat-header-cell *matHeaderCellDef>Valor</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
             <td mat-cell *matCellDef="let element">{{ element.data.value }}</td>
         </ng-container>
 
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
             <td mat-cell *matCellDef="let element">{{ element.data.date }}</td>
         </ng-container>
         <ng-container matColumnDef="time">
-            <th mat-header-cell *matHeaderCellDef>Horas</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Horas</th>
             <td mat-cell *matCellDef="let element">{{ element.data.time }}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
             <td mat-cell *matCellDef="let row">
                 <mat-icon (click)="deleteRecord(row)">delete</mat-icon>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns">
-            <!-- <button (click)="dataReturn(row)">click</button> -->
-        </tr>
-    </table>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table> -->
 
-    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-    </mat-paginator>
-    <!-- showFirstLastButtons -->
-    <!-- </div> -->
-    <!-- </cdk-virtual-scroll-viewport> -->
-    <!-- <div *ngIf="fireStoreData$ | async as data">
-    <div *ngFor="let s of JSON.parse(data | json)">
-        <h1>{{ s.name }}</h1>
-    </div>
-</div> -->
-</div>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>
+<!-- </div> -->

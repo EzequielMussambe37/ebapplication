@@ -42,6 +42,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { MatSortModule } from '@angular/material/sort';
+import { UpdateBoxComponent } from './components/update-box/update-box.component';
 // import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
@@ -51,8 +53,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     DialogBoxComponent,
     ResultPlotlyComponent,
     MainPageComponent,
-    //OptionsPageComponent,
     ResultReportComponent,
+    UpdateBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    MatSortModule,
     //AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),

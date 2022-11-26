@@ -22,3 +22,5 @@ https://www.youtube.com/watch?v=XQdlMwS-azI&ab_channel=AyyazTech
      // "start": "node server.js",
 
      //"heroku-postbuild": "ng build --prod"
+
+     //the problem of heroku build was fixed by downgrade typescript to 4.7.4
